@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pashto-normalizer"
+version = "0.2.0"
+description = "A normalizer for Standard (Kabul / Afghan) Pashto text: Unicode clean-up and canonical letters, ZWNJ and tatweel kept by default, change reporting, offset tracking."
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = []
+keywords = ["pashto", "nlp", "normalization", "text-preprocessing", "unicode"]
+
+[project.urls]
+Homepage = "https://github.com/Khairullah-Ibrahim-Khail/Pashto_Normalizer"
+
+[project.scripts]
+pashto-normalizer = "pashto_normalizer.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["pashto_normalizer*"]
