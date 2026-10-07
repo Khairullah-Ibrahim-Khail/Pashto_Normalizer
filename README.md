@@ -32,24 +32,11 @@ It does **not** answer "is this word spelled correctly?" (a spell checker's job)
 - `سړي → سړی` is **never** normalization. Whether one form is right depends on the word and the sentence, so that is for a spell or grammar checker.
 - `ZWNJ`, tatweel, spacing and the five yeh letters are kept exactly as written, because they can be a spelling signal.
 
-```text
-                    Raw Pashto text
-                           │
-                           ▼
-              ┌──────────────────────┐
-              │   Unicode layer      │   safe, lossless in meaning
-              └──────────┬───────────┘
-                         ▼
-              ┌──────────────────────┐
-              │ Kabul-standard       │   one canonical letter per character
-              │ orthography layer    │
-              └──────────┬───────────┘
-                         │
-             ┌───────────┼────────────┐
-             ▼           ▼            ▼
-        Spell checker  Grammar     Stemmer
-                       checker
-```
+<p align="center">
+  <img src="docs/flowchart.png" alt="Flowchart: raw Pashto text passes through the Unicode layer and the Kabul-standard orthography layer, producing normalized text plus changes(), which feed the spell checker, grammar checker and stemmer. The five yeh letters, ZWNJ, tatweel, spacing and spelling are kept exactly as written." width="720">
+</p>
+
+<sub>Editable source: [`docs/flowchart.mmd`](docs/flowchart.mmd) (Mermaid)</sub>
 
 The original text is never thrown away. `changes()` lists every character that was altered, so an editor can underline the original and offer the normalized form as a suggestion (see [Seeing what changed](#seeing-what-changed)).
 
@@ -324,6 +311,9 @@ pashto_normalizer/
 ├── audit.py         corpus character audit
 ├── chars.py         alphabet and digit constants
 └── cli.py           command line interface
+docs/
+├── flowchart.png    architecture flowchart (used in this README)
+└── flowchart.mmd    Mermaid source
 tests/
 └── test_normalizer.py
 ```

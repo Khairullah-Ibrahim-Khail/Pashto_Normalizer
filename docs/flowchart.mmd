@@ -1,0 +1,34 @@
+%%{init: {"flowchart": {"nodeSpacing": 50, "rankSpacing": 40, "htmlLabels": true, "padding": 16, "wrappingWidth": 460}} }%%
+flowchart TD
+    RAW(["<b>Raw Pashto text</b>"])
+
+    U["<b>1. Unicode layer</b><br/><i>safe, lossless in meaning</i><br/><br/>Arabic presentation forms folded to letters<br/>Invisible and bidi characters removed<br/>Hamza and madda marks composed<br/>Horizontal whitespace collapsed"]
+
+    K["<b>2. Kabul-standard orthography layer</b><br/><i>one canonical letter per character</i><br/><br/>Arabic kaf to Pashto kaf  /  Persian gaf to Pashto gaf<br/>Urdu keyboard letters to Pashto letters<br/>Alef and heh variants unified<br/>Arabic-Indic digits to Persian digits  /  Urdu full stop to dot"]
+
+    KEEP["<b>Kept exactly as written</b><br/><i>possible spelling or grammar signals</i><br/><br/>The five yeh letters  |  ZWNJ  |  tatweel<br/>Word spacing  |  Spelling"]
+
+    OUT(["<b>Normalized text</b><br/>plus changes(): what changed, where, and why"])
+
+    SP["<b>Spell checker</b><br/><i>Is this word spelled correctly?</i>"]
+    GR["<b>Grammar checker</b><br/><i>Is it right in this sentence?</i>"]
+    ST["<b>Stemmer</b><br/><i>What is the stem?</i>"]
+
+    SPO(["Suggestions"])
+    GRO(["Corrections"])
+    STO(["Stems"])
+
+    RAW --> U --> K --> OUT
+    KEEP -. "never touched" .-> OUT
+    OUT --> SP --> SPO
+    OUT --> GR --> GRO
+    OUT --> ST --> STO
+
+    classDef io fill:#eef2ff,stroke:#6366f1,stroke-width:2px,color:#1e1b4b;
+    classDef layer fill:#ecfdf5,stroke:#10b981,stroke-width:2px,color:#064e3b;
+    classDef keep fill:#fffbeb,stroke:#f59e0b,stroke-width:2px,color:#78350f;
+    classDef user fill:#f8fafc,stroke:#64748b,stroke-width:2px,color:#0f172a;
+    class RAW,OUT,SPO,GRO,STO io;
+    class U,K layer;
+    class KEEP keep;
+    class SP,GR,ST user;
